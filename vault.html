@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault | Snekanth Babu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- CryptoJS for secure client-side password handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Snekanth<span>.</span></a>
+            <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+                                    <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><span class="lang-de">Home</span><span class="lang-en" style="display:none;">Home</span></a></li>
+                <li><a href="experience.html" class="nav-link"><span class="lang-de">Erfahrung</span><span class="lang-en" style="display:none;">Experience</span></a></li>
+                <li><a href="projects.html" class="nav-link"><span class="lang-de">Projekte</span><span class="lang-en" style="display:none;">Projects</span></a></li>
+                <li><a href="education.html" class="nav-link"><span class="lang-de">Bildung</span><span class="lang-en" style="display:none;">Education</span></a></li>
+                <li><a href="sop.html" class="nav-link"><span class="lang-de">Vision</span><span class="lang-en" style="display:none;">Vision</span></a></li>
+                <li><a href="games.html" class="nav-link"><span class="lang-de">Labor</span><span class="lang-en" style="display:none;">The Lab</span></a></li>
+                <li><a href="contact.html" class="nav-link"><span class="lang-de">Kontakt</span><span class="lang-en" style="display:none;">Contact</span></a></li>
+                <li style="display: flex; align-items: center; margin-left: 10px;">
+                    <span class="toggle-label de active" style="margin-right: 8px;">DE</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="langToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label en" style="margin-left: 8px; color: var(--text-light);">EN</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <div id="login-screen" class="vault-container">
+                <h1 class="section-title">
+                    <span class="lang-de">Gesicherter Bereich</span>
+                    <span class="lang-en" style="display:none;">Secure Vault</span>
+                </h1>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                    <span class="lang-de">Bitte Passwort eingeben, um Zugriff zu erhalten.</span>
+                    <span class="lang-en" style="display:none;">Please enter password to gain access.</span>
+                </p>
+                <input type="password" id="vault-pass" class="vault-input" placeholder="Password">
+                <div id="error-message" class="error-msg">
+                    <span class="lang-de">Falsches Passwort.</span>
+                    <span class="lang-en" style="display:none;">Incorrect password.</span>
+                </div>
+                <button onclick="checkPassword()" class="btn" style="width: 100%;">
+                    <span class="lang-de">Entsperren</span>
+                    <span class="lang-en" style="display:none;">Unlock</span>
+                </button>
+            </div>
+
+            <!-- Secured content hidden by default -->
+            <div id="vault-content" style="display: none; max-width: 800px; margin: 40px auto; background: var(--bg-card); padding: 50px; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); border-top: 4px solid var(--primary-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 class="section-title" style="margin: 0;">
+                        <span class="lang-de">Persönliche Dokumente</span>
+                        <span class="lang-en" style="display:none;">Personal Documents</span>
+                    </h2>
+                    <span style="color: var(--primary-color); font-weight: bold; background: var(--bg-accent); padding: 8px 16px; border-radius: 50px;">UNLOCKED 🔓</span>
+                </div>
+                
+                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 40px;">
+                    <span class="lang-de">Willkommen im Vault. Hier finden Sie vertrauliche Notizen, Zeugnisse und weiterführende Dokumente.</span>
+                    <span class="lang-en" style="display:none;">Welcome to the Vault. Here you will find confidential notes, certificates, and further documents.</span>
+                </p>
+
+                <div class="grid-2">
+                    <div style="background: var(--bg-accent); padding: 30px; border-radius: var(--radius-sm); border-left: 4px solid var(--accent-orange);">
+                        <h4 style="margin-bottom: 10px;">
+                            <span class="lang-de">Persönliche Notizen</span>
+                            <span class="lang-en" style="display:none;">Personal Notes</span>
+                        </h4>
+                        <p style="color: var(--text-light); font-family: monospace;">[No content yet / Verschlüsselt]</p>
+                    </div>
+                    <div style="background: var(--bg-accent); padding: 30px; border-radius: var(--radius-sm); border-left: 4px solid var(--primary-color);">
+                        <h4 style="margin-bottom: 10px;">
+                            <span class="lang-de">Private Dokumente</span>
+                            <span class="lang-en" style="display:none;">Private Documents</span>
+                        </h4>
+                        <p style="color: var(--text-light); font-family: monospace;">[No content yet / Platzhalter]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+            <footer style="background-color: var(--bg-accent); padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 80px;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">&copy; 2026 Snekanth Babu. All rights reserved.</p>
+            <div style="display: flex; gap: 30px;">
+                <a href="impressum.html" style="text-decoration: none; color: var(--text-secondary); font-size: 0.9rem;">Impressum</a>
+                <a href="datenschutz.html" style="text-decoration: none; color: var(--text-secondary); font-size: 0.9rem;">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Use a simple SHA256 hash check for 'Snekanth2026'
+        const TARGET_HASH = "9cb4423faf0b0c4e243930967d2eda7bc88ebd287eb0bea6c002acb6deab0c2a";
+
+        function checkPassword() {
+            const input = document.getElementById('vault-pass').value;
+            const errorMsg = document.getElementById('error-message');
+            
+            // Hash the input using CryptoJS
+            const hashedInput = CryptoJS.SHA256(input).toString();
+
+            if(hashedInput === TARGET_HASH) {
+                // Success
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('vault-content').style.display = 'block';
+                errorMsg.style.display = 'none';
+            } else {
+                // Failure
+                errorMsg.style.display = 'block';
+            }
+        }
+        
+        // Allow enter key
+        document.getElementById('vault-pass').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
